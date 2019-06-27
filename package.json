@@ -1,0 +1,28 @@
+{
+  "name": "convention-caser",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest",
+    "dev": "rollup --config --watch",
+    "build": "rollup --config --compact"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adlite/convention-caser.git"
+  },
+  "keywords": [
+    "code-conventions",
+    "case-system"
+  ],
+  "author": "Adlite",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adlite/convention-caser/issues"
+  },
+  "homepage": "https://github.com/adlite/convention-caser#readme"
+}

@@ -1,3 +1,6 @@
+# Compiled bundle
+lib/
+
 # Logs
 logs
 *.log
