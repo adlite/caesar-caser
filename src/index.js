@@ -1,7 +1,9 @@
-import types from './types';
-import {convert} from './caser';
+import Caser from './caser';
 
-export default {
-    types,
-    convert,
-};
+const caserFacade = function(str) {
+    return new Caser(str);
+}
+caserFacade.registerRule = Caser.registerRule;
+caserFacade.registerRules = Caser.registerRules;
+
+export default caserFacade;
