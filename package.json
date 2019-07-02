@@ -24,5 +24,9 @@
   "bugs": {
     "url": "https://github.com/adlite/convention-caser/issues"
   },
-  "homepage": "https://github.com/adlite/convention-caser#readme"
+  "homepage": "https://github.com/adlite/convention-caser#readme",
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "rollup": "^1.16.4"
+  }
 }

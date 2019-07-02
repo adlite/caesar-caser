@@ -1,9 +1,7 @@
-import {a, b} from './module';
+import types from './types';
+import {convert} from './caser';
 
-export function getA() {
-    return a;
-}
-
-export function getB() {
-    return b;
-}
+export default {
+    types,
+    convert,
+};
