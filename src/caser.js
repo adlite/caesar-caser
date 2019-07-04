@@ -59,7 +59,7 @@ class Caser {
 
     convert(ruleIn, ruleOut) {
         const ruleInDescr = Caser.getRule(ruleIn);
-        const ruleOutDescr = Caser.getRule(ruleOut);;
+        const ruleOutDescr = Caser.getRule(ruleOut);
 
         this.normalize(ruleInDescr);
 
