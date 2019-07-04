@@ -3,7 +3,7 @@ import {normalizeBySeparator} from './normalizers';
 import {capitalize} from './utils';
 
 class Caser {
-    // static rules = builtInRules; TODO: convert syntax by Babel
+    static rules = builtInRules;
 
     static registerRule(rule) {
         if (Caser.checkRuleInterface(rule)) {
@@ -97,6 +97,6 @@ class Caser {
     detect() { }
 };
 
-Caser.rules = builtInRules;
+// Caser.rules = builtInRules;
 
 export default Caser;

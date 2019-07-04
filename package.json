@@ -27,6 +27,7 @@
   "homepage": "https://github.com/adlite/convention-caser#readme",
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/preset-env": "^7.4.5",
     "jest": "^24.8.0",
     "rollup": "^1.16.4",
