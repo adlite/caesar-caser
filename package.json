@@ -26,7 +26,11 @@
   },
   "homepage": "https://github.com/adlite/convention-caser#readme",
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "jest": "^24.8.0",
-    "rollup": "^1.16.4"
+    "rollup": "^1.16.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }
