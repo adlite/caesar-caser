@@ -17,9 +17,14 @@ class Caser {
         }
     }
 
-    static getRuleByName(name) {
+    static getRule(rule) {
+        if (typeof rule === 'object') {
+            Caser.checkRuleInterface(rule);
+            return rule;
+        }
+
         for (let rule of Caser.rules) {
-            if (rule.name === name) {
+            if (rule.name === rule) {
                 return rule;
             }
         }
@@ -28,11 +33,14 @@ class Caser {
 
     static checkRuleInterface(rule) {
         if (typeof rule === 'object') {
-            if (typeof rule.name === 'string' || Array.isArray(rule.name)) {
+            if (
+                (typeof rule.name === 'string' || Array.isArray(rule.name)) && 
+                typeof rule.separator === 'string'
+            ) {
                 return true;
             }
         }
-        throw new TypeError('Rule should be an object with required key "name"');
+        throw new TypeError('Rule should be an object with required key "name" and "separator"');
     }
 
     static checkRulesInterface(rules) {
@@ -50,16 +58,8 @@ class Caser {
     }
 
     convert(ruleIn, ruleOut) {
-        let ruleInDescr = ruleIn;
-        let ruleOutDescr = ruleOut;
-
-        if (typeof ruleIn === 'string') {
-            ruleInDescr = Caser.getRuleByName(ruleIn);
-        }
-
-        if (typeof ruleOut === 'string') {
-            ruleOutDescr = Caser.getRuleByName(ruleOut);
-        }
+        const ruleInDescr = Caser.getRule(ruleIn);
+        const ruleOutDescr = Caser.getRule(ruleOut);;
 
         this.normalize(ruleInDescr);
 
@@ -84,6 +84,8 @@ class Caser {
         } else {
             throw new TypeError('"normalizeFunc" should return an array of strings');
         }
+
+        return this.normalized;
     }
 
     convertTo(rule) { }
