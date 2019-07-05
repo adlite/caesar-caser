@@ -7,6 +7,9 @@ import {
     convertWithCapitalize,
     convertCamelCase
 } from './converters';
+import {
+    detectUpperCasedBySeparator
+} from './detectors';
 
 export default [
     {
@@ -14,12 +17,14 @@ export default [
         separator: '',
         normalizeFunc: normalizeCamelCase,
         convertFunc: convertCamelCase,
+        detectFunc: () => 0
     },
     {
         name: 'upper-camel-case',
         separator: '',
         normalizeFunc: normalizeCamelCase,
         convertFunc: convertWithCapitalize,
+        detectFunc: () => 0
     },
     {
         name: 'kebab-case',
@@ -29,6 +34,7 @@ export default [
         name: 'train-case',
         separator: '-',
         convertFunc: convertWithUppercase,
+        detectFunc: detectUpperCasedBySeparator('-'),
     },
     {
         name: 'snake-case',
@@ -38,6 +44,7 @@ export default [
         name: 'screaming-snake-case',
         separator: '_',
         convertFunc: convertWithUppercase,
+        detectFunc: detectUpperCasedBySeparator('_'),
     },
     {
         name: 'dot-case',
@@ -47,5 +54,6 @@ export default [
         name: 'upper-dot-case',
         separator: '.',
         convertFunc: convertWithUppercase,
+        detectFunc: detectUpperCasedBySeparator('.'),
     },
 ];
