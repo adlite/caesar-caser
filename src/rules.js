@@ -8,7 +8,9 @@ import {
     convertCamelCase
 } from './converters';
 import {
-    detectUpperCasedBySeparator
+    detectUpperCasedBySeparator,
+    detectCamelCase,
+    detectUpperCamelCase
 } from './detectors';
 
 export default [
@@ -17,14 +19,14 @@ export default [
         separator: '',
         normalizeFunc: normalizeCamelCase,
         convertFunc: convertCamelCase,
-        detectFunc: () => 0
+        detectFunc: detectCamelCase,
     },
     {
         name: 'upper-camel-case',
         separator: '',
         normalizeFunc: normalizeCamelCase,
         convertFunc: convertWithCapitalize,
-        detectFunc: () => 0
+        detectFunc: detectUpperCamelCase,
     },
     {
         name: 'kebab-case',
