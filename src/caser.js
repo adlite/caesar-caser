@@ -1,7 +1,7 @@
 import builtInRules from './rules';
-import {normalizeBySeparator} from './normalizers';
-import {detectBySeparator} from './detectors';
-import {capitalize} from './utils';
+import { normalizeBySeparator } from './normalizers';
+import { detectBySeparator } from './detectors';
+import { capitalize } from './utils';
 
 class Caser {
     static rules = builtInRules;
@@ -26,22 +26,25 @@ class Caser {
         }
 
         // if rule is string
-        for (let ruleDescr of Caser.rules) {
-            if (ruleDescr.name === rule) {
-                return ruleDescr;
-            }
+        const foundRule = Caser.rules.find(ruleDescr => {
+            return ruleDescr.name === rule;
+        });
+        if (!foundRule) {
+            throw new TypeError(`There is no case rule with name "${rule}"`);    
         }
-        throw new TypeError(`There is no case rule with name "${rule}"`);
+        return foundRule;
     }
 
     static checkRuleInterface(rule) {
-        if (typeof rule === 'object') {
-            if (
-                (typeof rule.name === 'string' || Array.isArray(rule.name)) && 
-                typeof rule.separator === 'string'
-            ) {
-                return true;
-            }
+        if (
+            (typeof rule === 'object') &&
+            (typeof rule.name === 'string' || Array.isArray(rule.name)) &&
+            (typeof rule.separator === 'string') &&
+            (typeof rule.normalizeFunc === 'function' || rule.normalizeFunc === undefined) &&
+            (typeof rule.convertFunc === 'function' || rule.convertFunc === undefined) &&
+            (typeof rule.detectFunc === 'function' || rule.detectFunc === undefined)
+        ) {
+            return true;
         }
         throw new TypeError('Rule should be an object with required key "name" and "separator"');
     }
@@ -65,7 +68,7 @@ class Caser {
 
         const normalized = this.normalize(ruleInDescr);
 
-        const convertFunc = typeof ruleOutDescr.convertFunc === 'function' 
+        const convertFunc = typeof ruleOutDescr.convertFunc === 'function'
             ? ruleOutDescr.convertFunc
             : word => word;
         return normalized
@@ -84,7 +87,7 @@ class Caser {
         if (!Array.isArray(normalized)) {
             throw new TypeError('"normalizeFunc" should return an array of strings');
         }
-        
+
         return normalized;
     }
 
@@ -99,7 +102,7 @@ class Caser {
     detect(ruleIfUndetected = 'camel-case') {
         const weights = {};
 
-        for (const rule of Caser.rules) {
+        Caser.rules.forEach(rule => {
             const detectFunc = rule.detectFunc || detectBySeparator(rule.separator);
             const weight = detectFunc(this.string);
 
@@ -108,7 +111,7 @@ class Caser {
             }
 
             weights[rule.name] = weight;
-        }
+        });
 
         // Find max weight
         let maxWeight = {

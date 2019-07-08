@@ -1,4 +1,4 @@
-import {isUpperCased} from './utils';
+import { isUpperCased } from './utils';
 
 export const normalizeBySeparator = separator => str => {
     return str

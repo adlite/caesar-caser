@@ -1,5 +1,5 @@
 import {
-    normalizeCamelCase, 
+    normalizeCamelCase,
     normalizeBySeparator
 } from './normalizers';
 import {

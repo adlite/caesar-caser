@@ -1,4 +1,4 @@
-import {isUpperCased} from './utils';
+import { isUpperCased } from './utils';
 
 export const detectBySeparator = separator => str => {
     return str.trim().split(separator).length - 1;
