@@ -38,7 +38,7 @@ class Caser {
     static checkRuleInterface(rule) {
         if (
             (typeof rule === 'object') &&
-            (typeof rule.name === 'string' || Array.isArray(rule.name)) &&
+            (typeof rule.name === 'string') &&
             (typeof rule.separator === 'string') &&
             (typeof rule.normalizeFunc === 'function' || rule.normalizeFunc === undefined) &&
             (typeof rule.convertFunc === 'function' || rule.convertFunc === undefined) &&
@@ -58,8 +58,8 @@ class Caser {
         throw new TypeError('Rules should be an array of rules objects');
     }
 
-    constructor(string) {
-        this.string = string;
+    constructor(str) {
+        this.string = String(str);
     }
 
     convert(ruleIn, ruleOut) {

@@ -7,7 +7,7 @@ module.exports = {
     file: 'lib/index.js',
     format: 'umd',
     name: 'ConventionCaser',
-    exports: 'named',
+    exports: 'default',
   },
   plugins: [
     resolve(),

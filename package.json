@@ -7,9 +7,12 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "jest",
+    "test:watch": "npm run build && jest --watch",
+    "test": "npm run build && jest",
     "dev": "rollup --config --watch",
-    "build": "rollup --config --compact"
+    "build:clear": "rimraf lib",
+    "build:app": "rollup --config --compact",
+    "build": "npm run build:clear && npm run build:app"
   },
   "repository": {
     "type": "git",
@@ -29,7 +32,9 @@
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/preset-env": "^7.4.5",
+    "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
+    "rimraf": "^2.6.3",
     "rollup": "^1.16.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-node-resolve": "^5.2.0"
