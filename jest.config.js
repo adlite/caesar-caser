@@ -9,4 +9,5 @@ module.exports = {
     "/lib/",
     "/coverage/"
   ],
+  verbose: true
 };
