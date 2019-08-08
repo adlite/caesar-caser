@@ -5,5 +5,6 @@ const caserFacade = function (str) {
 }
 caserFacade.registerRule = Caser.registerRule;
 caserFacade.registerRules = Caser.registerRules;
+caserFacade.removeRule = Caser.removeRule;
 
 export default caserFacade;

@@ -18,6 +18,14 @@ class Caser {
         }
     }
 
+    static removeRule(ruleName) {
+        Caser.rules.forEach((rule, index) => {
+            if (rule.name === ruleName) {
+                Caser.rules.splice(index, 1);
+            }
+        });
+    }
+
     static getRule(rule) {
         // if rule is object
         if (typeof rule === 'object') {
