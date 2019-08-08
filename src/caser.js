@@ -6,14 +6,19 @@ import { capitalize } from './utils';
 class Caser {
     static rules = builtInRules;
 
-    static registerRule(rule) {
-        if (Caser.checkRuleInterface(rule)) {
-            Caser.rules.push(rule);
+    static registerRule(ruleDescr) {
+        Caser.checkRuleInterface(ruleDescr);
+        const foundRuleIndex = Caser.rules.findIndex(rule => rule.name === ruleDescr.name);
+
+        if (foundRuleIndex === -1) { // if rule with given name does not exist
+            Caser.rules.push(ruleDescr);
+        } else { // if exists Caser should override it
+            Caser.rules[foundRuleIndex] = ruleDescr;
         }
     }
 
     static registerRules(rules) {
-        if (Caser.checkRulesInterface(rules)) {
+        if (Array.isArray(rules)) {
             rules.forEach(rule => Caser.registerRule(rule));
         }
     }
@@ -55,15 +60,6 @@ class Caser {
             return true;
         }
         throw new TypeError('Rule should be an object with required key "name" and "separator"');
-    }
-
-    static checkRulesInterface(rules) {
-        if (Array.isArray(rules)) {
-            if (rules.every(Caser.checkRuleInterface)) {
-                return true;
-            };
-        }
-        throw new TypeError('Rules should be an array of rules objects');
     }
 
     constructor(str) {
