@@ -26,6 +26,20 @@ describe('Caser static methods', () => {
         expect(value).toBe('some:text');
     });
 
+    test('caser.registerRule() can override rule with the same name', () => {
+        // check built-in rule 'dot-case'
+        const oldValue = caser('someText').convertTo('dot-case');
+        expect(oldValue).toBe('some.text');
+        // register new rule with the same name
+        caser.registerRule({
+            name: 'dot-case',
+            separator: '·'
+        });
+        // convert with new separator
+        const newValue = caser('someText').convertTo('dot-case');
+        expect(newValue).toBe('some·text');
+    });
+
     test('caser.registerRules() works', () => {
         // register
         caser.registerRules([
@@ -46,11 +60,7 @@ describe('Caser static methods', () => {
         expect(pipeCaseValue).toBe('some|text');
     });
 
-    test('caser.registerRules() throws an error if rules have wrong interfaces', () => {
-        expect(() => {
-            caser.registerRules({});
-        }).toThrowError(TypeError);
-
+    test('caser.registerRules() throws an error if one of the rules has wrong interfaces', () => {
         expect(() => {
             caser.registerRules([1, 2]);
         }).toThrowError(TypeError);
@@ -69,6 +79,20 @@ describe('Caser static methods', () => {
         expect(() => {
             caser.registerRules([]);
         }).not.toThrowError(TypeError);
+    });
+
+    test('caser.removeRule() works', () => {
+        // register
+        caser.registerRule({
+            name: 'rule-to-delete',
+            separator: '$'
+        });
+        // removing
+        caser.removeRule('rule-to-delete');
+        // removed rule should throw an error
+        expect(() => {
+            caser('someText').convertTo('rule-to-delete')
+        }).toThrowError(TypeError);
     });
 
     test('caser.registerRule() with convertFunc param works', () => {
