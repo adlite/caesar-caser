@@ -65,6 +65,7 @@ describe('Caser static methods', () => {
             ]);
         }).toThrowError(TypeError);
 
+        // Empty array just do nothing
         expect(() => {
             caser.registerRules([]);
         }).not.toThrowError(TypeError);
@@ -77,16 +78,55 @@ describe('Caser static methods', () => {
         });
         caser.registerRule({
             name: 'convert-func-case',
-            separator: '_',
+            separator: '~',
             convertFunc: convertFunc
         });
 
         // check registered rule
-        // WHY DO THESE TESTS PASS??
         const value = caser('some_text_string').convertTo('convert-func-case');
         expect(convertFunc).toBeCalledTimes(3);
         expect(convertFunc).toBeCalledWith(expect.any(String), expect.any(Number), expect.any(Array));
     });
+
+    test('caser.registerRule() with normalizeFunc param works', () => {
+        // register
+        const normalizeFunc = jest.fn(str => {
+            return str.toLowerCase().split('~');
+        });
+        caser.registerRule({
+            name: 'normalize-func-case',
+            separator: '~',
+            normalizeFunc: normalizeFunc
+        });
+
+        // check registered rule
+        const value = caser('some~STRANGE~case~RuLe').convert('normalize-func-case', 'camel-case');
+        expect(value).toBe('someStrangeCaseRule');
+        expect(normalizeFunc).toBeCalledTimes(1);
+        expect(normalizeFunc).toBeCalledWith(expect.any(String));
+    });
+
+    test('caser.registerRule() with detectFunc param works', () => {
+        // register
+        const detectFunc = jest.fn(str => {
+            return str.trim().split('#').length - 1;
+        });
+        caser.registerRule({
+            name: 'hash-case',
+            separator: '--',
+            detectFunc: detectFunc // specify detectFunc instead of separator
+        });
+
+        // check registered rule
+        const value = caser('hash#case#string').detect();
+        expect(value).toBe('hash-case');
+        expect(detectFunc).toBeCalledTimes(1);
+        expect(detectFunc).toBeCalledWith(expect.any(String));
+    });
+});
+
+describe('Caser instance methods', () => {
+    
 });
 
 // caser.registerRule({
