@@ -1,0 +1,3 @@
+describe('Caser instance methods', () => {
+    
+});
