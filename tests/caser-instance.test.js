@@ -12,7 +12,7 @@ const cases = [
 ];
 
 describe('Caser instance methods', () => {
-    test('caser.convertTo() works with all rule convertions', () => {
+    test('caser.convert() works with all rule convertions', () => {
         cases.forEach(([caseNameA, caseResultA]) => {
             cases.forEach(([caseNameB, caseResultB]) => {
                 const value = caser(caseResultA).convert(caseNameA, caseNameB);
