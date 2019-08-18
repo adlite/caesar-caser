@@ -1,7 +1,6 @@
 import builtInRules from './rules';
 import { normalizeBySeparator } from './normalizers';
 import { detectBySeparator } from './detectors';
-import { capitalize } from './utils';
 
 class Caser {
     static rules = builtInRules;
@@ -43,7 +42,7 @@ class Caser {
             return ruleDescr.name === rule;
         });
         if (!foundRule) {
-            throw new TypeError(`There is no case rule with name "${rule}"`);    
+            throw new TypeError(`There is no case rule with name "${rule}"`);
         }
         return foundRule;
     }
@@ -99,11 +98,7 @@ class Caser {
         return this.convert(this.detect(), rule);
     }
 
-    capitalize() {
-        return capitalize(this.string);
-    }
-
-    detect(ruleIfUndetected = 'camel-case') {
+    detect(ruleIfUndetected = Caser.rules[0]) {
         const weights = {};
 
         Caser.rules.forEach(rule => {
