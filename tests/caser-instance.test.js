@@ -9,6 +9,10 @@ const cases = [
     ['screaming-snake-case', 'SOME_TEXT_STRING'],
     ['dot-case', 'some.text.string'],
     ['upper-dot-case', 'SOME.TEXT.STRING'],
+    ['sentence', 'Some text string'],
+    ['capitalized-sentence', 'Some Text String'],
+    ['upper-sentence', 'SOME TEXT STRING'],
+    ['lower-sentence', 'some text string'],
 ];
 
 describe('Caser instance methods', () => {

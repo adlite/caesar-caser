@@ -1,4 +1,8 @@
-import { isUpperCased, isLowerCased } from './utils';
+import {
+    isUpperCased,
+    isLowerCased,
+    isCapitalized
+} from './utils';
 
 export const detectBySeparator = separator => str => {
     return str.trim().split(separator).length - 1;
@@ -33,4 +37,31 @@ export const detectUpperCamelCase = str => {
         return 0;
     }
     return detectCamelCase(trimmedStr[0].toLowerCase() + trimmedStr.slice(1));
+};
+
+export const detectSentence = str => {
+    let weight = detectBySeparator(' ')(str);
+    return isUpperCased(str[0]) ? weight + 1 : 0;
+};
+
+function getWeightOfSentenceBy(sentence, callback) {
+  let weight = detectBySeparator(' ')(sentence);
+  const splittedStr = sentence.trim().split(' ');
+  // if every word in a sentence is in lowercase
+  if (splittedStr.every(callback)) {
+    weight += splittedStr.length;
+  }
+  return weight;
+}
+
+export const detectCapitalizedSentence = str => {
+  return getWeightOfSentenceBy(str, word => isCapitalized(word));
+};
+
+export const detectUpperSentence = str => {
+  return getWeightOfSentenceBy(str, word => isUpperCased(word));
+};
+
+export const detectLowerSentence = str => {
+  return getWeightOfSentenceBy(str, word => isLowerCased(word));
 };
