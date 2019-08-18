@@ -1,4 +1,4 @@
-# convention-caser
+# caesar-caser
 
 ```
 // Package name: convential-caser
