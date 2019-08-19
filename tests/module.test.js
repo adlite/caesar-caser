@@ -9,7 +9,6 @@ describe('Caser module tests', () => {
         expect(caser.default).toBeUndefined();
     });
     
-    // TODO: check this strange test
     test('caserFacade returns instance of Caser', () => {
         const instance = caser('str');
         expect(instance).toBeInstanceOf(instance.__proto__.constructor);
@@ -18,5 +17,10 @@ describe('Caser module tests', () => {
     test('caser.registerRule and caser.registerRules are functions', () => {
         expect(typeof caser.registerRule).toBe('function');
         expect(typeof caser.registerRules).toBe('function');
+    });
+
+    test('caser.utils is object', () => {
+        expect(typeof caser.utils).toBe('object');
+        expect(Array.isArray(caser.utils)).toBe(false);
     });
 });

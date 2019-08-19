@@ -6,7 +6,7 @@ module.exports = {
   output: {
     file: 'lib/index.js',
     format: 'umd',
-    name: 'ConventionCaser',
+    name: 'CaesarCaser',
     exports: 'default',
   },
   plugins: [
