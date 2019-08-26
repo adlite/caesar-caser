@@ -5,7 +5,7 @@ import { detectBySeparator } from './detectors';
 class Caser {
     static rules = builtInRules;
 
-    static registerRule(ruleDescr) {
+    static addRule(ruleDescr) {
         Caser.checkRuleInterface(ruleDescr);
         const foundRuleIndex = Caser.rules.findIndex(rule => rule.name === ruleDescr.name);
 
@@ -16,9 +16,9 @@ class Caser {
         }
     }
 
-    static registerRules(rules) {
+    static addRules(rules) {
         if (Array.isArray(rules)) {
-            rules.forEach(rule => Caser.registerRule(rule));
+            rules.forEach(rule => Caser.addRule(rule));
         }
     }
 

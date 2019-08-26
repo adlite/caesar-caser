@@ -14,9 +14,9 @@ describe('Caser module tests', () => {
         expect(instance).toBeInstanceOf(instance.__proto__.constructor);
     });
 
-    test('caser.registerRule and caser.registerRules are functions', () => {
-        expect(typeof caser.registerRule).toBe('function');
-        expect(typeof caser.registerRules).toBe('function');
+    test('caser.addRule and caser.addRules are functions', () => {
+        expect(typeof caser.addRule).toBe('function');
+        expect(typeof caser.addRules).toBe('function');
     });
 
     test('caser.utils is object', () => {

@@ -1,83 +1,83 @@
 const caser = require('../lib');
 
 describe('Caser static methods', () => {
-    test('caser.registerRule() throws an error if rule has wrong interface', () => {
+    test('caser.addRule() throws an error if rule has wrong interface', () => {
         expect(() => {
-            caser.registerRule({});
+            caser.addRule({});
         }).toThrowError(TypeError);
 
         expect(() => {
-            caser.registerRule({name: 'rule-name'});
+            caser.addRule({name: 'rule-name'});
         }).toThrowError(TypeError);
 
         expect(() => {
-            caser.registerRule({separator: ':'});
+            caser.addRule({separator: ':'});
         }).toThrowError(TypeError);
     });
 
-    test('caser.registerRule() works', () => {
+    test('caser.addRule() works', () => {
         // register
-        caser.registerRule({
-            name: 'semicolon-case',
+        caser.addRule({
+            name: 'semicolon',
             separator: ':'
         });
         // check registered rule
-        const value = caser('someText').convertTo('semicolon-case');
+        const value = caser('someText').convertTo('semicolon');
         expect(value).toBe('some:text');
     });
 
-    test('caser.registerRule() can override rule with the same name', () => {
-        // check built-in rule 'dot-case'
-        const oldValue = caser('someText').convertTo('semicolon-case');
+    test('caser.addRule() can override rule with the same name', () => {
+        // check built-in rule 'dot'
+        const oldValue = caser('someText').convertTo('semicolon');
         expect(oldValue).toBe('some:text');
         // register new rule with the same name
-        caser.registerRule({
-            name: 'semicolon-case',
+        caser.addRule({
+            name: 'semicolon',
             separator: '::'
         });
         // convert with new separator
-        const newValue = caser('someText').convertTo('semicolon-case');
+        const newValue = caser('someText').convertTo('semicolon');
         expect(newValue).toBe('some::text');
     });
 
     test('caser.removeRule() works', () => {
         // removing previously registered rule
-        caser.removeRule('semicolon-case');
+        caser.removeRule('semicolon');
         // removed rule should throw an error
         expect(() => {
-            caser('someText').convertTo('semicolon-case')
+            caser('someText').convertTo('semicolon')
         }).toThrowError(TypeError);
     });
 
-    test('caser.registerRules() works', () => {
+    test('caser.addRules() works', () => {
         // register
-        caser.registerRules([
+        caser.addRules([
             {
-                name: 'semicolon-case',
+                name: 'semicolon',
                 separator: ':'
             },
             {
-                name: 'double-semicolon-case',
+                name: 'double-semicolon',
                 separator: '::'
             },
         ]);
         // check registered rules
-        const semicolonValue = caser('someText').convertTo('semicolon-case');
+        const semicolonValue = caser('someText').convertTo('semicolon');
         expect(semicolonValue).toBe('some:text');
 
-        const doubleSemicolonValue = caser('someText').convertTo('double-semicolon-case');
+        const doubleSemicolonValue = caser('someText').convertTo('double-semicolon');
         expect(doubleSemicolonValue).toBe('some::text');
     });
 
-    test('caser.registerRules() throws an error if one of the rules has wrong interfaces', () => {
+    test('caser.addRules() throws an error if one of the rules has wrong interfaces', () => {
         expect(() => {
-            caser.registerRules([1, 2]);
+            caser.addRules([1, 2]);
         }).toThrowError(TypeError);
 
         expect(() => {
-            caser.registerRules([
+            caser.addRules([
                 {
-                    name: 'test-case',
+                    name: 'test',
                     separator: 'б_б'
                 },
                 'I am an evil string'
@@ -86,75 +86,75 @@ describe('Caser static methods', () => {
 
         // Empty array just do nothing
         expect(() => {
-            caser.registerRules([]);
+            caser.addRules([]);
         }).not.toThrowError(TypeError);
     });
 
-    test('caser.registerRule() with convertFunc param works', () => {
+    test('caser.addRule() with convertFunc param works', () => {
         // register
         const convertFunc = jest.fn((word, index, words) => {
             return word.toUpperCase();
         });
-        caser.registerRule({
-            name: 'semicolon-case',
+        caser.addRule({
+            name: 'semicolon',
             separator: ':',
             convertFunc: convertFunc
         });
 
         // check registered rule
-        const value = caser('someTextString').convertTo('semicolon-case');
+        const value = caser('someTextString').convertTo('semicolon');
         expect(convertFunc).toBeCalledTimes(3);
         expect(convertFunc).toBeCalledWith(expect.any(String), expect.any(Number), expect.any(Array));
         expect(value).toBe('SOME:TEXT:STRING');
 
         // remove rule
-        caser.removeRule('semicolon-case');
+        caser.removeRule('semicolon');
     });
 
-    test('caser.registerRule() with normalizeFunc param works', () => {
+    test('caser.addRule() with normalizeFunc param works', () => {
         // register
         const normalizeFunc = jest.fn(str => {
             return str.toLowerCase().split(':');
         });
-        caser.registerRule({
-            name: 'semicolon-case',
+        caser.addRule({
+            name: 'semicolon',
             separator: ':',
             normalizeFunc: normalizeFunc
         });
 
         // check registered rule
-        const value = caser('some:text:string').convert('semicolon-case', 'camel-case');
+        const value = caser('some:text:string').convert('semicolon', 'camel');
         expect(value).toBe('someTextString');
         expect(normalizeFunc).toBeCalledTimes(1);
         expect(normalizeFunc).toBeCalledWith(expect.any(String));
 
         // remove rule
-        caser.removeRule('semicolon-case');
+        caser.removeRule('semicolon');
     });
 
-    test('caser.registerRule() throws an error when normalizeFunc returns not array', () => {
+    test('caser.addRule() throws an error when normalizeFunc returns not array', () => {
         // register
         const normalizeFunc = jest.fn(str => {
             return 0;
         });
-        caser.registerRule({
-            name: 'semicolon-case',
+        caser.addRule({
+            name: 'semicolon',
             separator: ':',
             normalizeFunc: normalizeFunc
         });
 
         expect(() => {
-            caser('some:text:string').convert('semicolon-case', 'camel-case');
+            caser('some:text:string').convert('semicolon', 'camel');
         }).toThrowError(TypeError);
 
         // remove rule
-        caser.removeRule('semicolon-case');
+        caser.removeRule('semicolon');
     });
 
-    test('caser.registerRule() with detectFunc param works', () => {
+    test('caser.addRule() with detectFunc param works', () => {
         // register rule
-        caser.registerRule({
-            name: 'semicolon-case',
+        caser.addRule({
+            name: 'semicolon',
             separator: ':'
         });
 
@@ -163,8 +163,8 @@ describe('Caser static methods', () => {
             const baseWeight = str.trim().split(':').length - 1;
             return caser.utils.isUpperCased(str) ? baseWeight + 1 : baseWeight; 
         });
-        caser.registerRule({
-            name: 'upper-semicolon-case',
+        caser.addRule({
+            name: 'upper-semicolon',
             separator: ':',
             detectFunc: detectFunc
         });
@@ -177,11 +177,11 @@ describe('Caser static methods', () => {
 
         const upperValue = caser('SOME:TEXT:STRING').detect();
 
-        expect(value).toBe('semicolon-case');
-        expect(upperValue).toBe('upper-semicolon-case');
+        expect(value).toBe('semicolon');
+        expect(upperValue).toBe('upper-semicolon');
 
         // remove rules
-        caser.removeRule('semicolon-case');
-        caser.removeRule('upper-semicolon-case');
+        caser.removeRule('semicolon');
+        caser.removeRule('upper-semicolon');
     });
 });

@@ -1,14 +1,14 @@
 const caser = require('../lib');
 
 const cases = [
-    ['camel-case', 'someTextString'],
-    ['upper-camel-case', 'SomeTextString'],
-    ['kebab-case', 'some-text-string'],
-    ['train-case', 'SOME-TEXT-STRING'],
-    ['snake-case', 'some_text_string'],
-    ['screaming-snake-case', 'SOME_TEXT_STRING'],
-    ['dot-case', 'some.text.string'],
-    ['upper-dot-case', 'SOME.TEXT.STRING'],
+    ['camel', 'someTextString'],
+    ['pascal', 'SomeTextString'],
+    ['kebab', 'some-text-string'],
+    ['train', 'SOME-TEXT-STRING'],
+    ['snake', 'some_text_string'],
+    ['constant', 'SOME_TEXT_STRING'],
+    ['dot', 'some.text.string'],
+    ['upper-dot', 'SOME.TEXT.STRING'],
     ['sentence', 'Some text string'],
     ['capitalized-sentence', 'Some Text String'],
     ['upper-sentence', 'SOME TEXT STRING'],

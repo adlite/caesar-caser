@@ -18,45 +18,45 @@ import {
 
 export default [
     {
-        name: 'camel-case',
+        name: 'camel',
         separator: '',
         normalizeFunc: normalizeCamelCase,
         convertFunc: convertCamelCase,
         detectFunc: detectCamelCase,
     },
     {
-        name: 'upper-camel-case',
+        name: 'pascal',
         separator: '',
         normalizeFunc: normalizeCamelCase,
         convertFunc: convertWithCapitalize,
         detectFunc: detectUpperCamelCase,
     },
     {
-        name: 'kebab-case',
+        name: 'kebab',
         separator: '-',
     },
     {
-        name: 'train-case',
+        name: 'train',
         separator: '-',
         convertFunc: convertWithUppercase,
         detectFunc: detectUpperCasedBySeparator('-'),
     },
     {
-        name: 'snake-case',
+        name: 'snake',
         separator: '_',
     },
     {
-        name: 'screaming-snake-case',
+        name: 'constant',
         separator: '_',
         convertFunc: convertWithUppercase,
         detectFunc: detectUpperCasedBySeparator('_'),
     },
     {
-        name: 'dot-case',
+        name: 'dot',
         separator: '.',
     },
     {
-        name: 'upper-dot-case',
+        name: 'upper-dot',
         separator: '.',
         convertFunc: convertWithUppercase,
         detectFunc: detectUpperCasedBySeparator('.'),
