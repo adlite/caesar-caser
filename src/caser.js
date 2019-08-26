@@ -98,7 +98,7 @@ class Caser {
         return this.convert(this.detect(), rule);
     }
 
-    detect(ruleIfUndetected = Caser.rules[0]) {
+    detect(priorityRule) {
         const weights = {};
 
         Caser.rules.forEach(rule => {
@@ -114,7 +114,7 @@ class Caser {
 
         // Find max weight
         let maxWeight = {
-            name: ruleIfUndetected,
+            name: Caser.rules[0].name,
             value: 0
         };
         for (const ruleName in weights) {
@@ -123,6 +123,15 @@ class Caser {
                     name: ruleName,
                     value: weights[ruleName]
                 };
+            }
+        }
+
+        // Duplicates with max weight for rule priority detection
+        if (priorityRule) {
+            const duplicates = Object.keys(weights).filter(key => weights[key] === maxWeight.value);
+            if (duplicates.length > 1) {
+                const foundRule = duplicates.find(ruleName => ruleName === priorityRule);
+                if (foundRule) return foundRule;
             }
         }
 

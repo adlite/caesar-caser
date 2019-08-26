@@ -40,4 +40,11 @@ describe('Caser instance methods', () => {
             expect(value).toBe(caseName);
         });
     });
+
+    test('caser.detect(priorityRule) works with all rules', () => {
+        cases.forEach(([caseName]) => {
+            const value = caser('ohmygodwhatisit').detect(caseName);
+            expect(value).toBe(caseName);
+        });
+    });
 });

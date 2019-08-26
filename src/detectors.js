@@ -48,7 +48,7 @@ function getWeightOfSentence(sentence, callback) {
   let weight = detectBySeparator(' ')(sentence);
   const splittedStr = sentence.trim().split(' ');
   // check every word in a sentence by callback function
-  if (splittedStr.every(callback)) {
+  if (splittedStr.length > 1 && splittedStr.every(callback)) {
     weight += splittedStr.length;
   }
   return weight;
