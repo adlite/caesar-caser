@@ -65,27 +65,22 @@ class Caser {
         this.string = String(str);
     }
 
-    convert(ruleIn, ruleOut) {
-        const ruleInDescr = Caser.getRule(ruleIn);
-        const ruleOutDescr = Caser.getRule(ruleOut);
+    convert(ruleInName, ruleOutName) {
+        const ruleOut = Caser.getRule(ruleOutName);
+        const normalized = this.normalize(ruleInName);
 
-        const normalized = this.normalize(ruleInDescr);
-
-        const convertFunc = typeof ruleOutDescr.convertFunc === 'function'
-            ? ruleOutDescr.convertFunc
+        const convertFunc = typeof ruleOut.convertFunc === 'function'
+            ? ruleOut.convertFunc
             : word => word;
         return normalized
             .map((word, index) => String(convertFunc(word, index, normalized)))
-            .join(ruleOutDescr.separator);
+            .join(ruleOut.separator);
     }
 
-    normalize(rule) {
-        let normalized = null;
-        if (typeof rule.normalizeFunc === 'function') {
-            normalized = rule.normalizeFunc(this.string);
-        } else {
-            normalized = normalizeBySeparator(rule.separator)(this.string);
-        }
+    normalize(ruleName) {
+        const rule = Caser.getRule(ruleName);
+        const normalizeFunc = rule.normalizeFunc || normalizeBySeparator(rule.separator);
+        const normalized = normalizeFunc(this.string);
 
         if (!Array.isArray(normalized)) {
             throw new TypeError('"normalizeFunc" should return an array of strings');
@@ -94,11 +89,11 @@ class Caser {
         return normalized;
     }
 
-    convertTo(rule) {
-        return this.convert(this.detect(), rule);
+    convertTo(ruleName) {
+        return this.convert(this.detect(), ruleName);
     }
 
-    detect(priorityRule) {
+    detect(priorityRuleName) {
         const weights = {};
 
         Caser.rules.forEach(rule => {
@@ -127,10 +122,10 @@ class Caser {
         }
 
         // Duplicates with max weight for rule priority detection
-        if (priorityRule) {
+        if (priorityRuleName) {
             const duplicates = Object.keys(weights).filter(key => weights[key] === maxWeight.value);
             if (duplicates.length > 1) {
-                const foundRule = duplicates.find(ruleName => ruleName === priorityRule);
+                const foundRule = duplicates.find(ruleName => ruleName === priorityRuleName);
                 if (foundRule) return foundRule;
             }
         }

@@ -47,4 +47,11 @@ describe('Caser instance methods', () => {
             expect(value).toBe(caseName);
         });
     });
+
+    test('caser.normalize(ruleName) works with all rules', () => {
+        cases.forEach(([caseName, caseResult]) => {
+            const value = caser(caseResult).normalize(caseName);
+            expect(value).toEqual(['some', 'text', 'string']);
+        });
+    });
 });
