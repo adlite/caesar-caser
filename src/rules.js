@@ -68,7 +68,7 @@ export default [
       detectFunc: detectSentence,
     },
     {
-      name: 'capitalized-sentence',
+      name: 'cap-sentence',
       separator: ' ',
       convertFunc: convertWithCapitalize,
       detectFunc: detectCapitalizedSentence,

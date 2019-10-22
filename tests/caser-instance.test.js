@@ -10,7 +10,7 @@ const cases = [
     ['dot', 'some.text.string'],
     ['upper-dot', 'SOME.TEXT.STRING'],
     ['sentence', 'Some text string'],
-    ['capitalized-sentence', 'Some Text String'],
+    ['cap-sentence', 'Some Text String'],
     ['upper-sentence', 'SOME TEXT STRING'],
     ['lower-sentence', 'some text string'],
 ];
