@@ -1,4 +1,4 @@
-# Caesar Caser
+# Caesar Caser ⚔
 Simple but powerful utility for case style detection and converting.
 
 ## Install
