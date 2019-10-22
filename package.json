@@ -1,6 +1,6 @@
 {
   "name": "caesar-caser",
-  "version": "0.0.1",
+  "version": "1.0.0-rc.1",
   "description": "Simple but powerful utility for case style detection and converting",
   "main": "lib/index.js",
   "directories": {
