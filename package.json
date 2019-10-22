@@ -14,7 +14,7 @@
     "build:lib": "rollup --config --compact",
     "build": "npm run build:clear && npm run build:lib",
     "prepublishOnly": "npm run build && npm run test",
-    "postpublish": "git add -A && git push && git push --tags"
+    "postversion": "git add -A && git push && git push --tags"
   },
   "repository": {
     "type": "git",
