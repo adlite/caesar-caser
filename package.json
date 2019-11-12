@@ -23,7 +23,21 @@
   },
   "keywords": [
     "code-conventions",
-    "case-system"
+    "case-system",
+    "case-detection",
+    "case-converting",
+    "camelcase",
+    "camel-case",
+    "camel",
+    "case",
+    "dash",
+    "string",
+    "pascalcase",
+    "kebabcase",
+    "traincase",
+    "snakecase",
+    "capitalization",
+    "text-processing"
   ],
   "author": "Adlite <adlite@yandex.ru> (https://github.com/adlite/)",
   "license": "MIT",
