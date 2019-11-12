@@ -30,6 +30,9 @@
     "url": "https://github.com/adlite/caesar-caser/issues"
   },
   "homepage": "https://github.com/adlite/caesar-caser#readme",
+  "files": [
+    "lib"
+  ],
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
