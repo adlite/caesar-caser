@@ -3,6 +3,7 @@
   "version": "1.0.0-rc.2",
   "description": "Simple but powerful utility for case style detection and converting",
   "main": "lib/index.js",
+  "types": "index.d.ts",
   "directories": {
     "test": "tests"
   },
@@ -46,7 +47,8 @@
   },
   "homepage": "https://github.com/adlite/caesar-caser#readme",
   "files": [
-    "lib"
+    "lib",
+    "index.d.ts"
   ],
   "devDependencies": {
     "@babel/core": "^7.4.5",
